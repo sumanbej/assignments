@@ -1,42 +1,109 @@
 import { NextApiRequest,NextApiResponse } from "next";
-type ServiceHealth = {
-    service_name: string;
-    region: string;
-    health: string;
+type ServiceStatus = {
+    east_us: string;
+    west_us: string;
+    west_europe: string;
+    east_asia: string;
+    canary: string;
+    staging: string;
   };
   
-  const serviceHealthData: ServiceHealth[] = [
-    {
-      service_name: "sfedge",
-      region: "West US",
-      health: "Healthy",
+  type Service = {
+
+    name: string;
+    status: ServiceStatus;
+  };
+  
+  const serviceHealthData: Service[] = [
+  {
+    name: "SFEdge",
+    status: {
+      east_us: "Healthy",
+      west_us: "Degraded",
+      west_europe: "Unhealthy",
+      east_asia: "Healthy",
+      canary: "Healthy",
+      staging: "Healthy",
     },
-    {
-      service_name: "sfedge",
-      region: "East US",
-      health: "Healthy",
+  },
+  {
+    name: "Home",
+    status: {
+      east_us: "Healthy",
+      west_us: "Healthy",
+      west_europe: "Healthy",
+      east_asia: "Healthy",
+      canary: "Degraded",
+      staging: "Healthy",
     },
-    {
-      service_name: "sfedge",
-      region: "East Asia",
-      health: "Unhealthy",
+  },
+  {
+    name: "Apps",
+    status: {
+      east_us: "Degraded",
+      west_us: "Healthy",
+      west_europe: "Degraded",
+      east_asia: "Healthy",
+      canary: "Healthy",
+      staging: "Healthy",
     },
-    {
-      service_name: "spark",
-      region: "West US",
-      health: "Healthy",
+  },
+  {
+    name: "Games",
+    status: {
+      east_us: "Healthy",
+      west_us: "Unhealthy",
+      west_europe: "Healthy",
+      east_asia: "Degraded",
+      canary: "Healthy",
+      staging: "Healthy",
     },
-    {
-      service_name: "spark",
-      region: "East US",
-      health: "Unhealthy",
+  },
+  {
+    name: "Search",
+    status: {
+      east_us: "Healthy",
+      west_us: "Degraded",
+      west_europe: "Unhealthy",
+      east_asia: "Healthy",
+      canary: "Degraded",
+      staging: "Healthy",
     },
-    {
-      service_name: "spark",
-      region: "East Asia",
-      health: "Healthy",
+  },
+  {
+    name: "Ads",
+    status: {
+      east_us: "Unhealthy",
+      west_us: "Degraded",
+      west_europe: "Healthy",
+      east_asia: "Healthy",
+      canary: "Healthy",
+      staging: "Degraded",
     },
-  ];
+  },
+  {
+    name: "CMS",
+    status: {
+      east_us: "Healthy",
+      west_us: "Healthy",
+      west_europe: "Healthy",
+      east_asia: "Healthy",
+      canary: "Healthy",
+      staging: "Healthy",
+    },
+  },
+  {
+    name: "Spark",
+    status: {
+      east_us: "Degraded",
+      west_us: "Degraded",
+      west_europe: "Degraded",
+      east_asia: "Healthy",
+      canary: "Degraded",
+      staging: "Healthy",
+    },
+  },
+];
   
   export default function handler(
     req: NextApiRequest,
